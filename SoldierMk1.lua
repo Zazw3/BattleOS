@@ -38,6 +38,7 @@ while true do
         if firstAttack then
           local chatBox = toolbelt.equipAndBind("chatBox", "left")
           chatBox.say("Turtle Soldier: Target Sighted, Open Fire!", 64, true, "Turtle Soldier")
+          firstAttack = false
         end
         
         local r, theta, psi = cartesean2spherical(e.x, e.y, e.z)
