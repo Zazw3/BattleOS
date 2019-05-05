@@ -55,7 +55,9 @@ while true do
         end 
       end
     end
+    shotsTally = shotsTally + 1
   end
   shout("Reloading")
   sleep(kReloadTime)
+  shotsTally = 0
 end
