@@ -6,7 +6,13 @@ kMaxDist = 30
 kMagazineSize = 20
 kReloadTime = 3.5
 kScanInterval = 0.3
-entityWhitelist = {["zazw3"]=true}
+
+local targets = {"ARavinSheep12", "FriedMudkip", "beasty_lenny", "TWYBOG"}
+local entityWhitelist = {}
+for i = 1, #targets do
+  entityWhitelist[targets[i]] = true
+end
+
 firstAttack = true;
 
 -- 2D or 3D magnitude
