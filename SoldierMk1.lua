@@ -3,6 +3,8 @@
 os.loadAPI("toolbelt.lua")
 
 kMaxDist = 30
+kMagazineSize = 20
+kReloadTime = 3.5
 entityWhitelist = {["zazw3"]=true}
 firstAttack = true;
 
@@ -25,26 +27,35 @@ function cartesean2spherical(x, y, z)
   return r, theta, psi
 end
 
+function shout(msg)
+  local chatBox = toolbelt.equipAndBind("chatBox", "left")
+  chatBox.say(os.getComputerLabel()..": "..msg, 64, true, os.getComputerLabel())
+end
+
 toolbelt.init()
 
 local laser = toolbelt.equipAndBind("plethora:laser", "right")
 
 while true do
-  local sensor = toolbelt.equipAndBind("plethora:sensor", "left")
-  local entities = sensor.sense()
-  for _,e in ipairs(entities) do
-    if entityWhitelist[e.name] then
-      if dist(e.x, e.y, e.z) <= kMaxDist then
-        if firstAttack then
-          local chatBox = toolbelt.equipAndBind("chatBox", "left")
-          chatBox.say("Turtle Soldier: Target Sighted, Open Fire!", 64, true, "Turtle Soldier")
-          firstAttack = false
-        end
-        
-        local r, theta, psi = cartesean2spherical(e.x, e.y, e.z)
-        laser.fire(psi, theta, 1) 
-      end 
+  local shotsTally = 0
+  while shotsTally <= kMagazineSize do
+    sleep(0.3)
+    local sensor = toolbelt.equipAndBind("plethora:sensor", "left")
+    local entities = sensor.sense()
+    for _,e in ipairs(entities) do
+      if entityWhitelist[e.name] then
+        if dist(e.x, e.y, e.z) <= kMaxDist then
+          if firstAttack then
+            shout("Target Sighted, Open Fire!")
+            firstAttack = false
+          end
+          
+          local r, theta, psi = cartesean2spherical(e.x, e.y, e.z)
+          laser.fire(psi, theta, 1) 
+        end 
+      end
     end
   end
+  shout("Reloading")
+  sleep(kReloadTime)
 end
-
