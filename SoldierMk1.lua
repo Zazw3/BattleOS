@@ -5,6 +5,7 @@ os.loadAPI("toolbelt.lua")
 kMaxDist = 30
 kMagazineSize = 20
 kReloadTime = 3.5
+kScanInterval = 0.3
 entityWhitelist = {["zazw3"]=true}
 firstAttack = true;
 
@@ -39,7 +40,7 @@ local laser = toolbelt.equipAndBind("plethora:laser", "right")
 while true do
   local shotsTally = 0
   while shotsTally <= kMagazineSize do
-    sleep(0.3)
+    sleep(kScanInterval)
     local sensor = toolbelt.equipAndBind("plethora:sensor", "left")
     local entities = sensor.sense()
     for _,e in ipairs(entities) do
