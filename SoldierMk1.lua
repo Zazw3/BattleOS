@@ -52,10 +52,10 @@ while true do
           
           local r, theta, psi = cartesean2spherical(e.x, e.y, e.z)
           laser.fire(psi, theta, 1) 
+          shotsTally = shotsTally + 1
         end 
       end
     end
-    shotsTally = shotsTally + 1
   end
   shout("Reloading")
   sleep(kReloadTime)
