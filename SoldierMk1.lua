@@ -9,7 +9,7 @@ firstAttack = true;
 -- 2D or 3D magnitude
 function dist(x,y,z)
   z = z or 0
-  return sqrt((x*x) + (y*y) + (z*z))
+  return math.sqrt((x*x) + (y*y) + (z*z))
 end
 
 -- Cartesian to Spherical coordinates.  
@@ -19,8 +19,8 @@ end
 function cartesean2spherical(x, y, z)
   local PI = 3.14
   local r = dist(x,y,z)
-  local psi = math.atan2(pos.x, -pos.z) * (180/PI)
-  local theta = math.atan2(-pos.y, dist(x, z)) * (180/PI)
+  local psi = math.atan2(-x, z) * (180/PI)
+  local theta = math.atan2(-y, dist(x, z)) * (180/PI)
 
   return r, theta, psi
 end
